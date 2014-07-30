@@ -5,11 +5,14 @@ $ ->
 
     update: (e, ui) ->
       item = ui.item
+      item_data = item.data()
+      params = { _method: 'put' }
+      params[item_data.modelName] = { row_order_position: item.index() }
       $.ajax
         type: 'POST'
-        url: item.data().updateUrl
+        url: item_data.updateUrl
         dataType: 'json'
-        data: { fruit: { row_order_position: item.index() }, _method: 'put' }
+        data: params
     start: (e, ui) ->
       tableWidth = $(this).width()
       cells = ui.item.children('td')
